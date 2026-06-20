@@ -1,0 +1,7 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "consultation_pipeline": "./medai_system/core/pipeline.py:pipeline"
+  },
+  "env": ".env"
+}
