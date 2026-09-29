@@ -1,7 +1,7 @@
 """Vue compte-rendu — Rapport médical final"""
 
 import streamlit as st
-from ..utils.http_client import client
+from utils.http_client import client
 from datetime import datetime
 
 

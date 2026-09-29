@@ -3,13 +3,19 @@ MedAI System — Point d'entrée principal
 Démarrage du serveur: python run.py
 """
 
-import sys
-sys.path.insert(0, "medai_system")
+import os
 
-from server.routes import app
+from dotenv import load_dotenv
+
+load_dotenv()
+
+HOST = os.getenv("MEDAI_HOST", "127.0.0.1")
+PORT = int(os.getenv("MEDAI_PORT", "8000"))
+RELOAD = os.getenv("MEDAI_RELOAD", "false").lower() == "true"
 
 if __name__ == "__main__":
     import uvicorn
-    print("\n[MedAI] Démarrage du serveur sur http://localhost:8000")
-    print("[MedAI] Documentation API : http://localhost:8000/docs\n")
-    uvicorn.run("medai_system.server.routes:app", host="0.0.0.0", port=8000, reload=True)
+
+    print(f"\n[MedAI] Démarrage du serveur sur http://{HOST}:{PORT}")
+    print(f"[MedAI] Documentation API : http://{HOST}:{PORT}/docs\n")
+    uvicorn.run("medai_system.server.routes:app", host=HOST, port=PORT, reload=RELOAD)

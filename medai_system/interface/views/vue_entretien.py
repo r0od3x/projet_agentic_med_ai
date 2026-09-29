@@ -1,7 +1,7 @@
 """Vue d'entretien clinique — Questionnaire patient"""
 
 import streamlit as st
-from ..utils.http_client import client
+from utils.http_client import client
 
 
 def vue_entretien():

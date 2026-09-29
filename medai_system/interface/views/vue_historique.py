@@ -1,7 +1,7 @@
 """Vue historique — Liste des dossiers de consultation"""
 
 import streamlit as st
-from ..utils.http_client import client
+from utils.http_client import client
 
 
 def vue_historique():

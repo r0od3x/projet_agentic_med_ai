@@ -1,7 +1,7 @@
 """Vue d'accueil — Saisie du motif de consultation"""
 
 import streamlit as st
-from ..utils.http_client import client
+from utils.http_client import client
 
 
 def vue_accueil():
@@ -12,7 +12,7 @@ def vue_accueil():
 
     if not client.is_online():
         st.error(
-            "Serveur indisponible. Vérifiez que le backend tourne sur http://localhost:8000"
+            f"Serveur indisponible. Vérifiez que le backend tourne sur {client.url}"
         )
         return
 

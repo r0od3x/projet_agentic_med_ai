@@ -1,10 +1,8 @@
 from ..schema import ConsultationContext
-from langchain_openai import ChatOpenAI
-from dotenv import load_dotenv
 from ..tools.ai_tools import ai_medical
+from ..config import get_llm
 
-load_dotenv()
-_llm = ChatOpenAI(model="gpt-4", temperature=0.7)
+_llm = get_llm(temperature=0.7)
 
 
 def synthesis_agent(ctx: ConsultationContext) -> ConsultationContext:

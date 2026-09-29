@@ -1,9 +1,7 @@
 from langchain.tools import tool
-from langchain_openai import ChatOpenAI
-from dotenv import load_dotenv
+from ..config import get_llm
 
-load_dotenv()
-_llm = ChatOpenAI(model="gpt-4", temperature=0.3)
+_llm = get_llm(temperature=0.3)
 
 
 class AIMedicalEngine:

@@ -2,19 +2,22 @@
 Client HTTP pour la communication avec le serveur MedAI System.
 """
 
+import os
+
 import requests
 from typing import Optional, Dict, Any
 
-_BASE = "http://localhost:8000"
+_BASE = os.getenv("MEDAI_SERVER_URL", "http://localhost:8000").rstrip("/")
 
 
 class MedAIClient:
     def __init__(self, server_url: str = _BASE):
         self.url = server_url
+        self.timeout = float(os.getenv("MEDAI_HTTP_TIMEOUT", "120"))
 
     def _get(self, path: str, **kwargs) -> Optional[Dict[str, Any]]:
         try:
-            r = requests.get(f"{self.url}{path}", **kwargs)
+            r = requests.get(f"{self.url}{path}", timeout=self.timeout, **kwargs)
             return r.json() if r.status_code == 200 else None
         except Exception as e:
             print(f"[CLIENT] GET {path} → erreur: {e}")
@@ -22,7 +25,7 @@ class MedAIClient:
 
     def _post(self, path: str, **kwargs) -> Dict[str, Any]:
         try:
-            r = requests.post(f"{self.url}{path}", **kwargs)
+            r = requests.post(f"{self.url}{path}", timeout=self.timeout, **kwargs)
             return r.json() if r.status_code == 200 else {"error": f"HTTP {r.status_code}", "details": r.text}
         except Exception as e:
             print(f"[CLIENT] POST {path} → erreur: {e}")
@@ -31,7 +34,7 @@ class MedAIClient:
     def is_online(self) -> bool:
         """Vérifie que le serveur répond."""
         try:
-            r = requests.get(f"{self.url}/ping")
+            r = requests.get(f"{self.url}/ping", timeout=5)
             return r.status_code == 200
         except Exception:
             return False
